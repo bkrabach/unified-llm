@@ -5,6 +5,10 @@ Unified LLM client library for Rust — multi-provider support for OpenAI, Anthr
 [![CI](https://github.com/bkrabach/unified-llm/actions/workflows/ci.yaml/badge.svg)](https://github.com/bkrabach/unified-llm/actions)
 [![MIT license](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 
+## Overview
+
+`unified-llm` provides a single Rust API for calling large language models across OpenAI, Anthropic (Claude), and Google Gemini. It auto-detects the provider from environment variables, normalizes request/response formats, and supports streaming and tool use through a consistent interface built on Tokio.
+
 ## Features
 
 - **Multi-provider** — OpenAI, Anthropic (Claude), and Google Gemini through a single API
@@ -38,7 +42,20 @@ println!("{}", result.text);
 | `ANTHROPIC_API_KEY` | Anthropic (Claude) |
 | `GOOGLE_API_KEY` | Google Gemini |
 
-## Related
+## Origin
 
-- [attractor](https://github.com/bkrabach/attractor) — Pipeline engine (uses unified-llm)
-- [coding-agent-loop](https://github.com/bkrabach/coding-agent-loop) — Agentic tool loop (uses unified-llm)
+This project was built from the [Unified LLM Client Specification](https://github.com/strongdm/attractor/blob/main/unified-llm-spec.md) (NLSpec) by [strongDM](https://github.com/strongdm). The NLSpec defines a language-agnostic specification for building a unified client library across multiple LLM providers.
+
+## Ecosystem
+
+| Project | Description |
+|---------|-------------|
+| [attractor](https://github.com/bkrabach/attractor) | DOT-based pipeline engine |
+| [attractor-server](https://github.com/bkrabach/attractor-server) | HTTP API server |
+| [attractor-ui](https://github.com/bkrabach/attractor-ui) | Web frontend |
+| [unified-llm](https://github.com/bkrabach/unified-llm) | Multi-provider LLM client |
+| [coding-agent-loop](https://github.com/bkrabach/coding-agent-loop) | Agentic tool loop |
+
+## License
+
+MIT
