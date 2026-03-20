@@ -6,10 +6,10 @@
 
 use std::collections::HashMap;
 
-use base64::{engine::general_purpose::STANDARD, Engine as _};
+use base64::{Engine as _, engine::general_purpose::STANDARD};
 use futures::StreamExt as _;
-use reqwest::header::{HeaderMap, HeaderValue, CONTENT_TYPE};
-use serde_json::{json, Value};
+use reqwest::header::{CONTENT_TYPE, HeaderMap, HeaderValue};
+use serde_json::{Value, json};
 
 use crate::{
     error::UnifiedLlmError,

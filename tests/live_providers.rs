@@ -11,14 +11,13 @@
 
 use futures::StreamExt as _;
 use unified_llm::{
-    generate,
+    AnthropicAdapter, Client, ClientBuilder, GeminiAdapter, GenerateParams, OpenAiAdapter,
+    ProviderAdapter, UnifiedLlmError, Usage, generate,
     streaming::StreamEventType,
     types::{
         AudioData, ContentKind, ContentPart, ImageData, Message, Request, Role, Tool, ToolCall,
         ToolResult,
     },
-    AnthropicAdapter, Client, ClientBuilder, GeminiAdapter, GenerateParams, OpenAiAdapter,
-    ProviderAdapter, UnifiedLlmError, Usage,
 };
 
 const PROMPT: &str = "What is 2+2? Reply with just the number.";

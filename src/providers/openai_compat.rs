@@ -9,10 +9,10 @@
 
 use std::collections::HashMap;
 
-use base64::{engine::general_purpose::STANDARD, Engine as _};
+use base64::{Engine as _, engine::general_purpose::STANDARD};
 use futures::StreamExt as _;
-use reqwest::header::{HeaderMap, HeaderValue, AUTHORIZATION, CONTENT_TYPE};
-use serde_json::{json, Value};
+use reqwest::header::{AUTHORIZATION, CONTENT_TYPE, HeaderMap, HeaderValue};
+use serde_json::{Value, json};
 
 use crate::{
     error::UnifiedLlmError,
@@ -405,11 +405,7 @@ fn translate_message_compat(msg: &Message) -> Value {
                     .filter(|p| p.kind == ContentKind::Text)
                     .filter_map(|p| p.text.as_deref())
                     .collect::<String>();
-                if t.is_empty() {
-                    None
-                } else {
-                    Some(t)
-                }
+                if t.is_empty() { None } else { Some(t) }
             };
 
             let tool_calls: Vec<Value> = msg

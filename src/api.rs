@@ -1295,7 +1295,7 @@ async fn generate_object_prompt_engineering(
 #[cfg(test)]
 mod tests {
     use super::*;
-    use crate::testing::{make_text_response, make_tool_call_response, MockProviderAdapter};
+    use crate::testing::{MockProviderAdapter, make_text_response, make_tool_call_response};
 
     async fn build_client(adapter: MockProviderAdapter) -> Client {
         crate::client::ClientBuilder::new()
@@ -1578,9 +1578,11 @@ mod tests {
         }
 
         use crate::streaming::StreamEventType;
-        assert!(events
-            .iter()
-            .any(|e| e.event_type == StreamEventType::TextDelta));
+        assert!(
+            events
+                .iter()
+                .any(|e| e.event_type == StreamEventType::TextDelta)
+        );
     }
 
     // AC-3: response() after stream consumed returns valid Response
@@ -2328,8 +2330,8 @@ mod tests {
     async fn tool_arg_validation_rejects_invalid_args_with_is_error() {
         use crate::testing::make_tool_call_response;
         use std::sync::{
-            atomic::{AtomicBool, Ordering},
             Arc,
+            atomic::{AtomicBool, Ordering},
         };
 
         // Tool call response with missing required "city" field.
