@@ -11,8 +11,8 @@
 //! - Finish reason inferred from presence of `functionCall` parts
 
 use futures::StreamExt as _;
-use reqwest::header::{CONTENT_TYPE, HeaderMap, HeaderValue};
-use serde_json::{Value, json};
+use reqwest::header::{HeaderMap, HeaderValue, CONTENT_TYPE};
+use serde_json::{json, Value};
 
 use crate::{
     error::UnifiedLlmError,
@@ -483,7 +483,7 @@ fn translate_content_part_gemini(part: &ContentPart, role: &Role) -> Option<Valu
                 }))
             } else {
                 // V2-ULM-005: resolve data from existing bytes or file path.
-                use base64::{Engine as _, engine::general_purpose::STANDARD};
+                use base64::{engine::general_purpose::STANDARD, Engine as _};
                 let resolved: Option<Vec<u8>> = img
                     .data
                     .clone()
@@ -1152,14 +1152,12 @@ mod tests {
         let (evs, terminal) = translate_gemini_chunk(&chunk, &mut ts, &mut fr);
         assert!(terminal);
         use crate::streaming::StreamEventType;
-        assert!(
-            evs.iter()
-                .any(|e| matches!(e, Ok(ev) if ev.event_type == StreamEventType::TextEnd))
-        );
-        assert!(
-            evs.iter()
-                .any(|e| matches!(e, Ok(ev) if ev.event_type == StreamEventType::Finish))
-        );
+        assert!(evs
+            .iter()
+            .any(|e| matches!(e, Ok(ev) if ev.event_type == StreamEventType::TextEnd)));
+        assert!(evs
+            .iter()
+            .any(|e| matches!(e, Ok(ev) if ev.event_type == StreamEventType::Finish)));
     }
 
     #[test]
@@ -1175,10 +1173,9 @@ mod tests {
         });
         let (evs, _terminal) = translate_gemini_chunk(&chunk, &mut ts, &mut fr);
         use crate::streaming::StreamEventType;
-        assert!(
-            evs.iter()
-                .any(|e| matches!(e, Ok(ev) if ev.event_type == StreamEventType::ReasoningDelta))
-        );
+        assert!(evs
+            .iter()
+            .any(|e| matches!(e, Ok(ev) if ev.event_type == StreamEventType::ReasoningDelta)));
         // text_started should NOT be set for thought parts
         assert!(!ts);
     }

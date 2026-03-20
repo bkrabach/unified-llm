@@ -16,18 +16,18 @@ pub mod testing;
 pub mod types;
 
 pub use api::{
-    GenerateObjectParams, GenerateParams, GenerateResult, StepResult, StreamResult, generate,
-    generate_object, set_default_client, stream as stream_generate,
+    generate, generate_object, set_default_client, stream as stream_generate, GenerateObjectParams,
+    GenerateParams, GenerateResult, StepResult, StreamResult,
 };
 pub use catalog::{get_latest_model, get_model_info, list_models};
 pub use client::{Client, ClientBuilder};
 pub use error::UnifiedLlmError;
 pub use middleware::{Middleware, MiddlewareChain, MiddlewareNext, MiddlewareStreamNext};
-pub use providers::ProviderAdapter;
 pub use providers::anthropic::AnthropicAdapter;
 pub use providers::gemini::GeminiAdapter;
 pub use providers::openai::OpenAiAdapter;
 pub use providers::openai_compat::OpenAiCompatAdapter;
+pub use providers::ProviderAdapter;
 pub use retry::{RetryConfig, RetryPolicy};
 pub use streaming::{EventStream, StreamAccumulator, StreamEvent, StreamEventType};
 pub use types::{
